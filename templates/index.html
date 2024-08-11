@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Parsing</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .container {
+            margin-bottom: 20px;
+        }
+        .upload-form {
+            margin-bottom: 20px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            white-space: pre-wrap; /* Handle long JSON strings */
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Resume Parsing</h1>
+    
+    <!-- File Upload Form -->
+    <div class="container">
+        <form action="/process" method="post" enctype="multipart/form-data" class="upload-form">
+            <label for="pdf_doc">Upload your resume (PDF format):</label>
+            <input type="file" id="pdf_doc" name="pdf_doc" accept=".pdf" required>
+            <button type="submit">Upload</button>
+        </form>
+    </div>
+    
+    <!-- Display Extracted Data -->
+    <div class="container">
+        {% if data %}
+            <h2>Extracted Information:</h2>
+            <pre>{{ data|tojson(indent=2) }}</pre>
+        {% else %}
+            <p class="error">No data available to display.</p>
+        {% endif %}
+    </div>
+    
+    <!-- Back to Upload -->
+    <a href="/">Back to Upload</a>
+</body>
+</html>
