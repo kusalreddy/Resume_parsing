@@ -7,21 +7,21 @@ def combine_subwords(tokens):
     Combine subword tokens into full words by removing '##' and joining tokens.
     """
     words = []
-    current_word = []
+    current_word = ""
     for token in tokens:
         if token.startswith('##'):
             # Append token without '##'
-            current_word.append(token[2:])
+            current_word += token[2:]
         else:
             if current_word:
-                # Join the current word and add it to the list
-                words.append(''.join(current_word))
-                current_word = []
+                # Add the current word to the list
+                words.append(current_word)
+                current_word = ""
             # Add the new token
-            words.append(token)
+            current_word = token
     
     if current_word:
-        words.append(''.join(current_word))
+        words.append(current_word)
     
     return words
 
@@ -93,7 +93,8 @@ def parse_resume(resume_data):
 
     return json_output
 
-# Example usage
+
+# Example usage-single-shot response
 resume_data = """
 Kusal Degapudi
 Hyderabad Telangana
